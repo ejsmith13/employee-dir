@@ -1,19 +1,32 @@
 import React from "react";
 
 function Table(props) {
-    console.log (props)
+  console.log(props);
   return (
     <div>
       <table className="table">
-        {props.results.map(results => 
+      <tr>
+      <th scope="col">Pic</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+
+    </tr>
+        <tbody>
+          {props.results.map((results) => (
             <tr>
-            <th scope="col"> <img src={results.picture.thumbnail} /></th>
-            <th scope="col">{results.name.first} </th>
-            <th scope="col">{results.name.last} </th>
-            <th scope="col">{results.email} </th>
-            <th scope="col">{results.phone} </th>
-          </tr>
-        )}
+              <td>
+                {" "}
+                <img src={results.picture.thumbnail} />
+              </td>
+              <td>{results.name.first} </td>
+              <td>{results.name.last} </td>
+              <td>{results.email} </td>
+              <td>{results.phone} </td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </div>
   );

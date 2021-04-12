@@ -6,6 +6,7 @@ function SearchBar(props) {
   return (
     <form className="search">
       <div className="form-group">
+          <label>Search Employees</label>
         <input
           value={props.search}
           onChange={props.handleInputChange}
@@ -13,12 +14,11 @@ function SearchBar(props) {
           list="employees"
           type="text"
           className="form-control"
-          placeholder="Search Employees"
           id="searchEmp"
         />
-        <button type="submit" onClick={props.handleFormSubmit} className="btn btn-success">
+        {/* <button type="submit" onClick={props.handleFormSubmit} className="btn btn-success">
           Search
-        </button>
+        </button> */}
       </div>
     </form>
   );

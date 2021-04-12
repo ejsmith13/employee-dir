@@ -1,27 +1,74 @@
 import React, { Component } from "react";
-import Table from "./../components/Table/index";
-import API from "./../utils/API";
+import Container from "../components/Container";
+import SearchBar from "../components/SeachBar";
+import Table from "../components/Table/index";
+import API from "../utils/API";
 
 class Search extends Component {
   state = {
+    search: "",
     results: [],
+    filtered: []
   };
 
   componentDidMount() {
     API.getEmployeeList()
       .then((res) => {
         this.setState({ results: res.data.results });
-        console.log(this.state.results);
       })
       .catch((err) => console.log(err));
   }
 
+  handleInputChange = (event) => {
+      let search= event.target.value.toLowerCase();
+      let employees= this.state.results;
+      employees= employees.filter(employee => {
+        let first= employee.name.first.toLowerCase();
+        let last= employee.name.last.toLowerCase();
+        let email= employee.email.toLowerCase();
+        let phone= employee.phone;
+
+        if(first.includes(search)){
+            return first.includes(search)
+        }else if(last.includes(search)){
+            return last.includes(search)
+        }else if(email.includes(search)){
+            return email.includes(search)
+        }else if(phone.includes(search)){
+            return phone.includes(search)
+        }
+
+        });
+        
+      
+    this.setState({ filtered: employees });
+    
+  };
+
+  handleFormSubmit = (event) => {
+    event.preventDefault();
+    API.getDogsOfBreed(this.state.search)
+      .then((res) => {
+        if (res.data.status === "error") {
+          throw new Error(res.data.message);
+        }
+        this.setState({ results: res.data.message, error: "" });
+      })
+      .catch((err) => this.setState({ error: err.message }));
+  };
+
+ 
+
   render() {
     return (
       <div>
-        <Table
-          results= {this.state.results}
-        />
+        <Container>
+          <SearchBar
+            handleFormSubmit={this.handleFormSubmit}
+            handleInputChange={this.handleInputChange}
+          />
+          <Table results= {this.state.filtered.length? this.state.filtered : this.state.results} />
+        </Container>
       </div>
     );
   }

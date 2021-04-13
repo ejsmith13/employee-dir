@@ -36,7 +36,7 @@ class Search extends Component {
             return email.includes(search)
         }else if(phone.includes(search)){
             return phone.includes(search)
-        }
+        } 
 
         });
         
@@ -45,26 +45,11 @@ class Search extends Component {
     
   };
 
-  handleFormSubmit = (event) => {
-    event.preventDefault();
-    API.getDogsOfBreed(this.state.search)
-      .then((res) => {
-        if (res.data.status === "error") {
-          throw new Error(res.data.message);
-        }
-        this.setState({ results: res.data.message, error: "" });
-      })
-      .catch((err) => this.setState({ error: err.message }));
-  };
-
- 
-
   render() {
     return (
       <div>
         <Container>
           <SearchBar
-            handleFormSubmit={this.handleFormSubmit}
             handleInputChange={this.handleInputChange}
           />
           <Table results= {this.state.filtered.length? this.state.filtered : this.state.results} />

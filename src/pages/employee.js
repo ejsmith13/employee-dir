@@ -10,7 +10,7 @@ class Search extends Component {
     search: "",
     results: [],
     filtered: [],
-    order: "ascending"
+    order: "ascending",
   };
 
   componentDidMount() {
@@ -22,71 +22,68 @@ class Search extends Component {
   }
 
   handleInputChange = (event) => {
-      let search= event.target.value.toLowerCase();
-      let employees= this.state.results;
-      employees= employees.filter(employee => {
-        let first= employee.name.first.toLowerCase();
-        let last= employee.name.last.toLowerCase();
-        let email= employee.email.toLowerCase();
-        let phone= employee.phone;
+    let search = event.target.value.toLowerCase();
+    let employees = this.state.results;
+    employees = employees.filter((employee) => {
+      let first = employee.name.first.toLowerCase();
+      let last = employee.name.last.toLowerCase();
+      let email = employee.email.toLowerCase();
+      let phone = employee.phone;
 
-        if(first.includes(search)){
-            return first.includes(search)
-        }else if(last.includes(search)){
-            return last.includes(search)
-        }else if(email.includes(search)){
-            return email.includes(search)
-        }else if(phone.includes(search)){
-            return phone.includes(search)
-        } 
+      if (first.includes(search)) {
+        return first.includes(search);
+      } else if (last.includes(search)) {
+        return last.includes(search);
+      } else if (email.includes(search)) {
+        return email.includes(search);
+      } else if (phone.includes(search)) {
+        return phone.includes(search);
+      }
+    });
 
-        });
-        
-      
     this.setState({ filtered: employees });
-    
   };
 
   handleOrder = () => {
     console.log("Click");
-    console.log()
+    console.log();
+    let people = this.state.results;
     let A;
     let B;
-    if(this.state.order === "ascending") {
-     this.setState({order: "descending"})
-     let people = this.state.results;
-      const descending  = people.sort(function(a, b) {
-         A = a.name.last;
-         B = b.name.last;
-        return (A < B) ? -1 : (A > B) ? 1 : 0;
-    })
-    this.setState({results: descending})
-    } else if (this.state.order === "descending") {
-      this.setState({...this.state, order: "ascending"})
-      let people = this.state.results;
-      const ascending  = people.sort(function(a, b) {
-         A = a.name.last;
-         B = b.name.last;
-        return (A < B) ? 1 : (A > B) ? -1 : 0;
-    });
-      this.setState({results: ascending})
-    } 
-  };
+    if (this.state.order === "ascending") {
+      this.setState({ order: "descending" });
+      const descending = people.sort(function (a, b) {
+        A = a.name.last;
+        B = b.name.last;
+        return A < B ? -1 : A > B ? 1 : 0;
+      });
+      this.setState({ results: descending });
 
-  
+    } else if (this.state.order === "descending") {
+      this.setState({ ...this.state, order: "ascending" });
+      const ascending = people.sort(function (a, b) {
+        A = a.name.last;
+        B = b.name.last;
+        return A < B ? 1 : A > B ? -1 : 0;
+      });
+      this.setState({ results: ascending });
+    }
+  };
 
   render() {
     return (
       <div>
         <Container>
-          <SearchBar
-            handleInputChange={this.handleInputChange}
+          <SearchBar handleInputChange={this.handleInputChange} />
+          <Button handleOrder={this.handleOrder} />
+          <Table
+            results={
+              this.state.filtered.length
+                ? this.state.filtered
+                : this.state.results
+            }
+            handleOrder={this.handleOrder}
           />
-          <Button 
-          handleOrder= {this.handleOrder}/>
-          <Table 
-          results= {this.state.filtered.length? this.state.filtered : this.state.results}
-          handleOrder = {this.handleOrder} />
         </Container>
       </div>
     );

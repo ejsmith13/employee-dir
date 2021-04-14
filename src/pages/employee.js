@@ -3,12 +3,14 @@ import Container from "../components/Container";
 import SearchBar from "../components/SeachBar";
 import Table from "../components/Table/index";
 import API from "../utils/API";
+import Button from "../components/Button";
 
 class Search extends Component {
   state = {
     search: "",
     results: [],
-    filtered: []
+    filtered: [],
+    order: "ascending"
   };
 
   componentDidMount() {
@@ -45,6 +47,34 @@ class Search extends Component {
     
   };
 
+  handleOrder = () => {
+    console.log("Click");
+    console.log()
+    let A;
+    let B;
+    if(this.state.order === "ascending") {
+     this.setState({order: "descending"})
+     let people = this.state.results;
+      const descending  = people.sort(function(a, b) {
+         A = a.name.last;
+         B = b.name.last;
+        return (A < B) ? -1 : (A > B) ? 1 : 0;
+    })
+    this.setState({results: descending})
+    } else if (this.state.order === "descending") {
+      this.setState({...this.state, order: "ascending"})
+      let people = this.state.results;
+      const ascending  = people.sort(function(a, b) {
+         A = a.name.last;
+         B = b.name.last;
+        return (A < B) ? 1 : (A > B) ? -1 : 0;
+    });
+      this.setState({results: ascending})
+    } 
+  };
+
+  
+
   render() {
     return (
       <div>
@@ -52,7 +82,11 @@ class Search extends Component {
           <SearchBar
             handleInputChange={this.handleInputChange}
           />
-          <Table results= {this.state.filtered.length? this.state.filtered : this.state.results} />
+          <Button 
+          handleOrder= {this.handleOrder}/>
+          <Table 
+          results= {this.state.filtered.length? this.state.filtered : this.state.results}
+          handleOrder = {this.handleOrder} />
         </Container>
       </div>
     );

@@ -5,9 +5,3 @@ form.search {
   margin: 10px auto;
 }
 
-form.search button[type="submit"] {
-  
-  float: right;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}

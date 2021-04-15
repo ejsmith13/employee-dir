@@ -22,6 +22,7 @@ class Search extends Component {
   }
 
   handleInputChange = (event) => {
+    event.preventDefault();
     let search = event.target.value.toLowerCase();
     let employees = this.state.results;
     employees = employees.filter((employee) => {

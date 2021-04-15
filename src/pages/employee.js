@@ -44,7 +44,7 @@ class Search extends Component {
     this.setState({ filtered: employees });
   };
 
-  handleOrder = () => {
+  handleLast = () => {
     console.log("Click");
     console.log();
     let people = this.state.results;
@@ -70,19 +70,46 @@ class Search extends Component {
     }
   };
 
+  handleFirst = () => {
+    console.log("Click");
+    console.log();
+    let people = this.state.results;
+    let A;
+    let B;
+    if (this.state.order === "ascending") {
+      this.setState({ order: "descending" });
+      const descending = people.sort(function (a, b) {
+        A = a.name.first;
+        B = b.name.first;
+        return A < B ? -1 : A > B ? 1 : 0;
+      });
+      this.setState({ results: descending });
+
+    } else if (this.state.order === "descending") {
+      this.setState({ ...this.state, order: "ascending" });
+      const ascending = people.sort(function (a, b) {
+        A = a.name.first;
+        B = b.name.first;
+        return A < B ? 1 : A > B ? -1 : 0;
+      });
+      this.setState({ results: ascending });
+    }
+  };
+
   render() {
     return (
       <div>
         <Container>
           <SearchBar handleInputChange={this.handleInputChange} />
-          <Button handleOrder={this.handleOrder} />
+          <Button handleLast={this.handleLast} />
           <Table
             results={
               this.state.filtered.length
                 ? this.state.filtered
                 : this.state.results
             }
-            handleOrder={this.handleOrder}
+            handleLast={this.handleLast}
+            handleFirst={this.handleFirst}
           />
         </Container>
       </div>

@@ -10,8 +10,8 @@ function Table(props) {
         <thead>
         <tr>
           <th scope="col"></th>
-          <th scope="col">First Name</th>
-          <th scope="col">Last Name</th>
+          <th scope="col">First Name <i className= "fas fa-angle-down " onClick={props.handleFirst}></i></th>
+          <th scope="col">Last Name <i className= "fas fa-angle-down " onClick={props.handleLast}></i></th>
           <th scope="col">Email</th>
           <th scope="col">Phone</th>
         </tr>

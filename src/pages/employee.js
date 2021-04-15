@@ -101,7 +101,6 @@ class Search extends Component {
       <div>
         <Container>
           <SearchBar handleInputChange={this.handleInputChange} />
-          <Button handleLast={this.handleLast} />
           <Table
             results={
               this.state.filtered.length

@@ -35,6 +35,10 @@
 
   ## Screenshots:
 
+  [Deployed Site](https://ejsmith13.github.io/employee-dir/)
+
+  ![Deployed Site Screenshot](./public/assets/images/screenshot_dir.png)
+
 
   
 

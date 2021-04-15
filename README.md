@@ -27,7 +27,7 @@
   ## Description:
 
 
-  This dynamic react application allows the user to search through an employe directory. 
+  This application was created using react and allows the user to search through an employee directory. As the user types in the first or last name, email, or phone number of an employee the application will dynamically shorten the list of employees to only those that meet the search parameters. Users can also order employees alphabetically by last name  by clicking on the button below the search bar. 
 
 
   
